@@ -1,0 +1,4 @@
+This is a somewhat quirky solution. I wanted to avoid building
+a full hierarchical object model and wanted to see whether (in the spirit of a CQRS approach) building a specific flat and simple structure to answer the specific question would still result in a not-too-spaghetti-like solution.
+
+I think that was quite OK, specifically as running the second part of the puzzle was still a simple change in the report phase and didn't require an adjustment in the intermediate structure.
