@@ -1,3 +1,6 @@
+import functools
+
+
 class Position(tuple):
     def __add__(self, other):
         return Position([self[0] + other[0], self[1] + other[1]])
@@ -30,6 +33,19 @@ class Tree:
                     break
         return int(bool(visible_directions))
 
+    def scenic_score(self):
+        directional_scores = []
+        # Check all directions and reduce our visibility if we
+        # encounter a tree that is at least our size
+        for direction in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            seen_trees = 0
+            for neighbour in self.walk_neighbours(direction):
+                seen_trees += 1
+                if neighbour.height >= self.height:
+                    break
+            directional_scores.append(seen_trees)
+        return functools.reduce(lambda x, y: x * y, directional_scores)
+
 
 # (x, y) -> Tree
 forest = {}
@@ -42,8 +58,6 @@ for y, line in enumerate(open("input")):
         forest[position] = Tree(forest, position, height)
 
 # Gather visibility for all trees
-visible_trees = 0
-for tree in forest.values():
-    visible_trees += tree.visible()
+highest_scenic_score = max(x.scenic_score() for x in forest.values())
 
-print(visible_trees)
+print(highest_scenic_score)
