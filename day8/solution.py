@@ -1,3 +1,6 @@
+from typing import Dict
+
+
 class Position(tuple):
     def __add__(self, other):
         return Position([self[0] + other[0], self[1] + other[1]])
@@ -31,8 +34,7 @@ class Tree:
         return int(bool(visible_directions))
 
 
-# (x, y) -> Tree
-forest = {}
+forest: Dict[Position, Tree] = {}
 
 # Parse input
 for y, line in enumerate(open("input")):
